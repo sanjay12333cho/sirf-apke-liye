@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine 💘</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:radial-gradient(circle at top,#ff9a9e,#fad0c4,#ffe1ea);
+    font-family:'Segoe UI',sans-serif;
+    overflow:hidden;
+}
+
+/* FLOATING HEARTS */
+.heart{
+    position:absolute;
+    animation:float linear infinite;
+    opacity:.7;
+    pointer-events:none;
+}
+@keyframes float{
+    from{transform:translateY(110vh) scale(.8);}
+    to{transform:translateY(-15vh) scale(1.6);}
+}
+
+/* CARD */
+.card{
+    background:white;
+    width:420px;
+    max-width:92%;
+    padding:36px;
+    border-radius:32px;
+    text-align:center;
+    box-shadow:0 35px 90px rgba(0,0,0,.35);
+    animation:pop 1s ease;
+}
+@keyframes pop{
+    from{transform:scale(.75);opacity:0}
+    to{transform:scale(1);opacity:1}
+}
+
+/* FACE */
+.face{
+    font-size:88px;
+    margin-bottom:10px;
+    animation:heartbeat 1.8s infinite;
+}
+@keyframes heartbeat{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.08)}
+}
+
+/* QUESTION */
+h2{
+    color:#ff4b5c;
+    margin-bottom:14px;
+    font-size:22px;
+}
+
+/* MESSAGE */
+.message-box{
+    min-height:90px;
+    margin-bottom:18px;
+    padding:18px;
+    border-radius:22px;
+    background:linear-gradient(135deg,#fff1f3,#ffe4e9);
+    color:#444;
+    font-size:15px;
+    line-height:1.55;
+    box-shadow:0 12px 26px rgba(255,75,92,.28);
+    opacity:0;
+    transform:translateY(10px);
+    transition:.4s;
+}
+.show{opacity:1;transform:translateY(0)}
+
+/* YES SAFE ZONE */
+.yes-zone{
+    margin-bottom:18px;
+}
+#yes{
+    padding:16px 52px;
+    background:linear-gradient(135deg,#ff4b5c,#ff7a92);
+    color:white;
+    font-size:17px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+    box-shadow:0 14px 35px rgba(255,75,92,.55);
+    transition:.3s;
+}
+#yes:hover{transform:scale(1.08)}
+
+/* NO RESTRICTED ZONE */
+.no-zone{
+    position:relative;
+    height:90px;
+    border-radius:18px;
+    background:#fff6f8;
+    overflow:hidden;
+}
+#no{
+    position:absolute;
+    width:82px;
+    height:38px;
+    border:none;
+    border-radius:14px;
+    background:#f2f2f2;
+    cursor:pointer;
+    font-size:15px;
+}
+
+/* FINAL */
+.final{
+    animation:fade 1.2s ease;
+}
+@keyframes fade{
+    from{opacity:0;transform:scale(.65)}
+    to{opacity:1;transform:scale(1)}
+}
+
+/* MOBILE OPTIMIZATION */
+@media(max-width:480px){
+    .face{font-size:74px}
+    h2{font-size:20px}
+    .message-box{font-size:14px}
+    #yes{padding:14px 44px;font-size:16px}
+}
+</style>
+</head>
+
+<body>
+
+<script>
+/* Floating hearts */
+const hearts=["💖","💘","💕","💗","❤️"];
+for(let i=0;i<30;i++){
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
+    h.style.left=Math.random()*100+"vw";
+    h.style.fontSize=14+Math.random()*18+"px";
+    h.style.animationDuration=4+Math.random()*5+"s";
+    document.body.appendChild(h);
+}
+</script>
+
+<div class="card" id="card">
+    <div class="face" id="face">😊</div>
+    <h2>Will you be my Valentine, cutie? 💘</h2>
+
+    <!-- MESSAGE BELOW QUESTION -->
+    <div class="message-box" id="msg"></div>
+
+    <!-- YES SAFE -->
+    <div class="yes-zone">
+        <button id="yes">YES 💖</button>
+    </div>
+
+    <!-- NO RESTRICTED -->
+    <div class="no-zone" id="noArea">
+        <button id="no">NO 🙈</button>
+    </div>
+</div>
+
+<script>
+const texts=[
+ "itni jaldi no? ek baar dil se socho 💭",
+ "abhi bhi no? thoda sa pyaar dedo ❤️",
+ "ye sirf proposal nahi, dil ki baat hai 🥺",
+ "pani puri + chocolate meri taraf se 😋",
+ "pizza aur burger bhi 🍕🍔",
+ "coffee date pe chalenge ☕",
+ "movie + popcorn saath me 🎬🍿",
+ "main poora care karunga 🤍",
+ "promise kabhi hurt nahi karunga 🙈",
+ "ab toh haan bol do 😌",
+ "baby pleaseeee 🥹",
+ "long bike ride pe chalenge 🏍️",
+ "sunset ke time saath 🌅",
+ "itna strong no mat bolo 😅",
+ "ab toh yes kar do 💕",
+ "mera dil rakh lo 🥺",
+ "last chance 🙈",
+ "decision tumhara ❤️"
+];
+
+const faces=[
+ "😊","🙂","🙂","😊","🙂","🙂",
+ "😊","😉","🙂","😌","🥺",
+ "🙂","😊","😅","😊","🥹",
+ "🙈","😍"
+];
+
+let i=0;
+const no=document.getElementById("no");
+const msg=document.getElementById("msg");
+const face=document.getElementById("face");
+const noArea=document.getElementById("noArea");
+const yes=document.getElementById("yes");
+
+no.onclick=()=>{
+    if(i<texts.length){
+        msg.innerText=texts[i];
+        msg.classList.add("show");
+        face.innerText=faces[i];
+
+        const maxX=noArea.clientWidth-no.offsetWidth;
+        const maxY=noArea.clientHeight-no.offsetHeight;
+
+        no.style.left=Math.random()*maxX+"px";
+        no.style.top=Math.random()*maxY+"px";
+
+        yes.style.transform=`scale(${1+i*0.07})`;
+        i++;
+    }else{
+        no.style.display="none";
+        msg.innerText="ab sirf YES hi option bacha hai 😌";
+        face.innerText="😍";
+    }
+};
+
+yes.onclick=()=>{
+    card.innerHTML=`
+        <div class="final">
+            <div style="font-size:110px;">😍💖😍</div>
+            <h2>You said YES 💘</h2>
+            <p style="font-size:18px;color:#ff4b5c;">
+                ye moment main zindagi bhar yaad rakhunga ❤️
+            </p>
+        </div>
+    `;
+};
+</script>
+
+</body>
+</html>
